@@ -1,5 +1,3 @@
-squares = Hash.new(" ")
-square_unused = [1,2,3,4,5,6,7,8,9]
 WINNING_LINES = [ [1,2,3],
                   [4,5,6],
                   [7,8,9],
@@ -71,9 +69,10 @@ def is_winner?(player, squares)
   win
 end
 
-once_again = 'y'
+begin
+  squares = Hash.new(" ")
+  square_unused = [1,2,3,4,5,6,7,8,9]
 
-while once_again == 'y'
   loop do
     draw_borad(squares)
     let_user_choice(square_unused, squares)
@@ -98,4 +97,4 @@ while once_again == 'y'
 
   puts "Once_again?(y/n)"
   once_again = gets.chomp
-end
+end until once_again == 'n'
