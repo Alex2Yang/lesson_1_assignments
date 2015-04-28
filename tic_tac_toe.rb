@@ -71,24 +71,31 @@ def is_winner?(player, squares)
   win
 end
 
-loop do
-  draw_borad(squares)
-  let_user_choice(square_unused, squares)
-  if is_winner?('user', squares)
-    draw_borad(squares)
-    puts 'You win!'
-    break
-  end
-  let_computer_choice(square_unused, squares)
-  if is_winner?('computer', squares)
-    draw_borad(squares)
-    puts 'Computer win!'
-    break
-  end
-  break if square_unused.empty?
-end
+once_again = 'y'
 
-unless is_winner?('computer', squares) || is_winner?('user', squares)
-  draw_borad(squares)
-  puts "It's a tie!"
+while once_again == 'y'
+  loop do
+    draw_borad(squares)
+    let_user_choice(square_unused, squares)
+    if is_winner?('user', squares)
+      draw_borad(squares)
+      puts 'You win!'
+      break
+    end
+    let_computer_choice(square_unused, squares)
+    if is_winner?('computer', squares)
+      draw_borad(squares)
+      puts 'Computer win!'
+      break
+    end
+    break if square_unused.empty?
+  end
+
+  unless is_winner?('computer', squares) || is_winner?('user', squares)
+    draw_borad(squares)
+    puts "It's a tie!"
+  end
+
+  puts "Once_again?(y/n)"
+  once_again = gets.chomp
 end
