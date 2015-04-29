@@ -48,6 +48,7 @@ def let_computer_choice(square_unused,squares)
   computer_choice = smarter_choice(squares)
   squares[computer_choice] = 'O'
   square_unused.delete(computer_choice)
+  draw_board(squares)
 end
 
 def let_user_choice(square_unused,squares)
@@ -57,6 +58,7 @@ def let_user_choice(square_unused,squares)
   end until square_unused.include?(user_choice)
   squares[user_choice] = 'X'
   square_unused.delete(user_choice)
+  draw_board(squares)
 end
 
 def is_winner?(player, squares)
@@ -78,19 +80,17 @@ end
 begin
   squares = Hash.new(" ")
   square_unused = [1,2,3,4,5,6,7,8,9]
+  draw_board(squares)
 
   loop do
-    draw_board(squares)
     let_user_choice(square_unused, squares)
     if is_winner?('user', squares)
-      draw_board(squares)
-      puts 'You win!'
+      puts "You Win!"
       break
     end
     let_computer_choice(square_unused, squares)
     if is_winner?('computer', squares)
-      draw_board(squares)
-      puts 'Computer win!'
+      puts "Computer Win!"
       break
     end
     break if square_unused.empty?
