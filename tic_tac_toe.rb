@@ -7,11 +7,11 @@ WINNING_LINES = [ [1,2,3],
                   [1,5,9],
                   [3,5,7]  ]
 
-def draw_borad(hash)
+def draw_board(hash)
   system 'clear'
   puts "-------------------"
   3.times.each do |i|
-    puts "|  #{hash[1+i*3]}  |  #{hash[2+i*3]}  |  #{hash[3+i*3]}  |"
+    puts "|  #{hash[1 + i * 3]}  |  #{hash[2 + i * 3]}  |  #{hash[3 + i * 3]}  |"
     puts("------+-----+------") if i < 2
   end
   puts "-------------------"
@@ -29,7 +29,7 @@ def smarter_choice(squares)
       one_in_a_row += line.select { |i| squares[i] == ' '}
     end
   end
-  if !two_in_a_row.empty?
+  if two_in_a_row.any?
      two_in_a_row.first
   else
     # I find that there is no duplicate elements in it, so remove the uniq mothod from the chain.
@@ -74,16 +74,16 @@ begin
   square_unused = [1,2,3,4,5,6,7,8,9]
 
   loop do
-    draw_borad(squares)
+    draw_board(squares)
     let_user_choice(square_unused, squares)
     if is_winner?('user', squares)
-      draw_borad(squares)
+      draw_board(squares)
       puts 'You win!'
       break
     end
     let_computer_choice(square_unused, squares)
     if is_winner?('computer', squares)
-      draw_borad(squares)
+      draw_board(squares)
       puts 'Computer win!'
       break
     end
@@ -91,7 +91,7 @@ begin
   end
 
   unless is_winner?('computer', squares) || is_winner?('user', squares)
-    draw_borad(squares)
+    draw_board(squares)
     puts "It's a tie!"
   end
 
