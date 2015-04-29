@@ -18,23 +18,29 @@ def draw_board(hash)
 end
 
 def smarter_choice(squares)
-  two_in_a_row = []
-  one_in_a_row = []
+  two_x_in_a_row = []
+  two_o_in_a_row = []
+  one_x_in_a_row = []
   WINNING_LINES.each do |line|
-    case [squares[line[0]], squares[line[1]], squares[line[2]]].sort
-    when [' ', 'X', 'X']
-      two_in_a_row  += line.select { |i| squares[i] == ' '}
+    case squares.values_at(*line).sort
+    when [' ', 'O', 'O']      # 1.defend my square with two "O"
+      two_o_in_a_row += line.select { |i| squares[i] == ' '}
       break
-    when [' ', ' ', 'X']
-      one_in_a_row += line.select { |i| squares[i] == ' '}
+    when [' ', 'X', 'X']      # 2.block user's square with two "X"
+      two_x_in_a_row  += line.select { |i| squares[i] == ' '}
+      break
+    when [' ', ' ', 'X']      # 3.block user's square with one "X"
+      one_x_in_a_row += line.select { |i| squares[i] == ' '}
     end
   end
-  if two_in_a_row.any?
-     two_in_a_row.first
+  if two_o_in_a_row.any?
+    two_o_in_a_row.first
+  elsif two_x_in_a_row.any?
+    two_x_in_a_row.first
   else
     # I find that there is no duplicate elements in it, so remove the uniq mothod from the chain.
     # Even if there is some duplicate elements, the probability that it will be chosen by user is very high.
-     one_in_a_row.sample
+    one_x_in_a_row.sample
   end
 end
 
