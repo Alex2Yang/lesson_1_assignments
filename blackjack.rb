@@ -13,16 +13,22 @@
 # player win if sum of dealer > 21
 # dealer win if sum of dealer == 21
 # compare sums and higher value win if dealer choose stay
-
+require 'pry'
+suits = ["H","D","C","S"]
 CARDS = {'A'=>[1,11], '2'=>2, '3'=>3, '4'=>4, '5'=>5, '6'=>6,
          '7'=>7, '8'=>8, '9'=>9, '10'=>10, 'J'=>10, 'Q'=>10, 'K'=>10}
-deck = CARDS.keys * 4
+deck = CARDS.keys.product(suits)
 
 def say_cards_and_sum(cards, sum, name)
   puts "#{name}'s cards is #{cards},and total value is #{sum}."
 end
 
-def calculate_the_sum(player_cards)
+def clean_suit(cards)
+  cards.map {|i| i.first}
+end
+
+def calculate_the_sum(cards)
+  player_cards = clean_suit(cards)
   max_value = 0
   min_value = 0
   player_cards.each do |i|
@@ -39,6 +45,7 @@ end
 
 def sum_equal_to_21?(cards)
   if calculate_the_sum(cards).include?(21)
+    puts "cards is #{cards}."
     puts "Sum equal to 21."
     true
   else
@@ -48,6 +55,7 @@ end
 
 def is_busted?(cards)
   if calculate_the_sum(cards).first > 21
+    puts "Cards is #{cards}."
     puts "Sum is greater than 21!"
     true
   else
@@ -68,6 +76,7 @@ def dealer_choice(cards)
   end
 end
 
+puts "Welcome to Blackjack!"
 puts "What's your name?"
 player_name = gets.chomp
 puts "Hi,#{player_name}"
@@ -140,6 +149,7 @@ loop do
       say_cards_and_sum(dealer_cards,dealer_cards_sum,'Dealer')
       puts "So,dealer win!"
     else
+      puts "Dealer's cards is #{dealer_cards}"
       puts "It's a tie!"
     end
   end
