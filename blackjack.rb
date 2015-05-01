@@ -13,7 +13,7 @@
 # player win if sum of dealer > 21
 # dealer win if sum of dealer == 21
 # compare sums and higher value win if dealer choose stay
-require 'pry'
+
 suits = ["H","D","C","S"]
 CARDS = {'A'=>[1,11], '2'=>2, '3'=>3, '4'=>4, '5'=>5, '6'=>6,
          '7'=>7, '8'=>8, '9'=>9, '10'=>10, 'J'=>10, 'Q'=>10, 'K'=>10}
